@@ -1,0 +1,182 @@
+:root {
+  /* font-family: system-ui, Avenir, Helvetica, Arial, sans-serif; */
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+.container-fluid {
+  padding: 0;
+}
+
+.main-content {
+  margin-left: 200px;
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+
+.main-content::-webkit-scrollbar {
+  display: none;
+}
+
+
+.nav-link.active {
+  font-weight: bold;
+  background-color: #495057;
+}
+
+
+
+.admin-sidebar {
+  width: 220px;
+  overflow: auto;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  transition: width 0.3s ease;
+}
+
+.admin-sidebar.collapsed {
+  width: 60px;
+}
+
+.admin-sidebar .nav-link {
+  padding: 10px;
+}
+
+@media (max-width: 768px) {
+  .admin-sidebar {
+    position: absolute;
+    z-index: 1000;
+    height: 100%;
+    left: 0;
+    top: 0;
+  }
+
+  .admin-sidebar.collapsed {
+    transform: translateX(-100%);
+  }
+}
+
+
+.admin-sidebar .nav-link.active {
+  background-color: #495057;
+  border-radius: 5px;
+}
+
+.admin-sidebar .nav-link.active {
+  background-color: #495057;
+  font-weight: bold;
+  border-left: 4px solid #0d6efd;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #606060;
+}
+
+.card-working-heading {
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.custom-project-card {
+  background-color: #000;
+}
+
+.start-date {
+  font-size: 12px;
+}
+
+.beginning_timer_color {
+  color: #A6FF00;
+}
+
+
+.intermediate_timer_color {
+  color: #FFB143;
+}
+
+.overdue_timer_color {
+  color: #FF4343;
+}
+
+.clock_style {
+  width: 23px;
+  height: 23px;
+  margin-top: 2px;
+}
+
+.normal_days_color {
+  color: #7CBF00;
+}
+
+.intermediate_days_color {
+  color: #FFB143;
+}
+
+
+.scroll-content {
+  font-size: 14px;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  /* IE/Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.scroll-content::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Opera */
+}
+
+.scroll-content .card-subtitle {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+
+label {
+  margin-bottom: 5px;
+}
+
+
+/* AUTO SCROLL CSS */
+.marquee-container {
+  position: relative;
+  overflow: hidden;
+  height: calc(100vh - 60px); /* adjust if sticky header height differs */
+}
+
+.marquee-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  animation: scroll-up-loop 40s linear infinite;
+}
+
+@keyframes scroll-up-loop {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
