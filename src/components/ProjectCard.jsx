@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 
-export default function ProjectCard({ project, col }) {
+export default function ProjectCard({ project, col, isLostMaking = false }) {
   const [timeLeft, setTimeLeft] = useState("00:00:00");
   const intervalRef = useRef(null);
 
@@ -21,8 +21,8 @@ export default function ProjectCard({ project, col }) {
 
   const totalDays = Number(project.no_of_working_days || 0);
   const remainingDays = Number(project.no_of_reaming_days || 0);
-  const remainingPercentage =
-    totalDays > 0 ? (remainingDays / totalDays) * 100 : 0;
+  const elapsedDays = totalDays - remainingDays;
+  const elapsedPercentage = totalDays > 0 ? (elapsedDays / totalDays) * 100 : 0;
 
   useEffect(() => {
     if (!project?.countdown_24hr) return;
@@ -51,9 +51,10 @@ export default function ProjectCard({ project, col }) {
   }, [project?.countdown_24hr]);
 
   const getColorClass = () => {
-    if (remainingPercentage >= 75) return "beginning_timer_color";
-    if (remainingPercentage >= 50) return "intermediate_timer_color";
-    return "overdue_timer_color";
+    if (remainingDays <= 1) return "overdue_timer_color"; // red if only 1 day or less left
+    if (elapsedPercentage >= 75) return "overdue_timer_color"; // red based on % also
+    if (elapsedPercentage >= 50) return "intermediate_timer_color"; // orange
+    return "beginning_timer_color"; // green
   };
 
   if (!project) return null;
@@ -65,7 +66,7 @@ export default function ProjectCard({ project, col }) {
 
         <div className="d-flex align-items-center justify-content-center gap-1">
           <div
-            className="p-1 bg-white text-center rounded"
+            className="p-1 pt-2 bg-white text-center rounded"
             style={{ width: "50%" }}
           >
             <h6 className="card-working-heading fw-bold">Total Working Days</h6>
@@ -73,10 +74,12 @@ export default function ProjectCard({ project, col }) {
           </div>
 
           <div
-            className="p-1 bg-white text-center rounded"
+            className="p-1  pt-2 bg-white text-center rounded"
             style={{ width: "50%" }}
           >
-            <h6 className="card-working-heading fw-bold">Remaining Days</h6>
+            <h6 className="card-working-heading fw-bold">
+              {isLostMaking ? "Overdue" : "Remaining"} Days
+            </h6>
             <h2
               className={`fw-bold mb-0 ${
                 getColorClass() === "beginning_timer_color"

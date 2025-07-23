@@ -11,7 +11,7 @@ export default function Projects() {
   const [searchTerm, setSearchTerm] = useState(""); // This will be used for actual filtering
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(10);
   const [totalRecords, setTotalRecords] = useState(0);
 
   const fetchProjects = async () => {
@@ -80,9 +80,8 @@ export default function Projects() {
             onChange={handleLimitChange}
             className="form-select form-select-sm w-auto"
           >
-            <option value={5}>5</option>
             <option value={10}>10</option>
-            <option value={20}>20</option>
+            <option value={20}>25</option>
           </select>
           <span>records per page</span>
         </div>

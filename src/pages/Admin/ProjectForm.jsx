@@ -4,7 +4,6 @@ import axios from "axios";
 import api from "../../api.js";
 import { renderStatus } from "../../Utils/utils.js";
 import DatePicker from "react-datepicker";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const statusOptions = [
@@ -18,7 +17,6 @@ const statusOptions = [
 export default function ProjectForm({ mode, projectId }) {
   const [loading, setLoading] = useState(false);
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [logs, setLogs] = useState([]);

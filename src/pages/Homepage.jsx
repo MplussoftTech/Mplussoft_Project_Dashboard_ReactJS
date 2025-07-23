@@ -195,7 +195,7 @@ export default function Homepage() {
               ) : (
                 <div className="row mt-4 px-3 pb-3" style={{ gap: "20px 0px" }}>
                   {lostMaking.map((project, index) => (
-                    <ProjectCard key={index} project={project} col={12} />
+                    <ProjectCard key={index} project={project} col={12} isLostMaking={true} />
                   ))}
                 </div>
               )}
