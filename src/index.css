@@ -99,6 +99,30 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .custom-project-card {
   background-color: #000;
+  position: relative;
+}
+
+ .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.842); /* semi-transparent */
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  /* cursor:not-allowed; */
+}
+
+.admin_logo{
+  width: 100%;
+  height: 60px;
+  object-fit: contain;
+  margin: 15px 0px 15px;
 }
 
 .start-date {

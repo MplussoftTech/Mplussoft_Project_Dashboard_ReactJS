@@ -159,7 +159,7 @@ export default function Homepage() {
               style={{ backgroundColor: "#333333", zIndex: 10 }}
             >
               <h4 className="text-white fw-bold mb-0 mt-0">
-                Lost Making Projects
+                Loss Making Projects
               </h4>
             </div>
 
