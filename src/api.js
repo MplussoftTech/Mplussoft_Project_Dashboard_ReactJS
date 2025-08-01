@@ -1,4 +1,4 @@
-const BASE_URL = "http://192.168.0.239:2000/api";
+const BASE_URL = "https://dashboard-api.mplussoft.in/api";
 
 const api = {
   admin: {
