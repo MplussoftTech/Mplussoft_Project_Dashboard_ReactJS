@@ -3,6 +3,7 @@ import AdminSidebar from "../components/AdminSidebar";
 import AdminNavbar from "../components/AdminNavbar";
 import AdminFooter from "../components/AdminFooter";
 import { useState } from "react";
+import { ToastContainer } from "react-toastify";
 
 export default function AdminLayout() {
   const [collapsed, setCollapsed] = useState(false);
@@ -13,6 +14,7 @@ export default function AdminLayout() {
   return (
     <div className="admin-layout d-flex">
       <AdminSidebar collapsed={collapsed} />
+      <ToastContainer />
       <div className="main-content d-flex flex-column flex-grow-1 min-vh-100">
         <AdminNavbar onToggleSidebar={toggleSidebar} />
         <main

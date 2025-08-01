@@ -17,7 +17,10 @@ export default function AdminSidebar({ collapsed }) {
         zIndex: 1000,
       }}
     >
-      <h4 className="p-3 text-center">Admin</h4>
+      <div className="text-center">
+        <img className="admin_logo" src="/icon.png" alt="" />
+      </div>
+
       <ul className="nav flex-column px-2">
         <li className="nav-item">
           <NavLink

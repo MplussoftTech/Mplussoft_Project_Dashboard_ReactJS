@@ -5,6 +5,7 @@ import AdminLogin from "./components/AdminLogin.jsx";
 import AdminRoutes from "./Routes/AdminRoutes.jsx";
 import ProtectedRoute from "./Utils/ProtectedRoute.jsx";
 import Homepage from "./pages/Homepage.jsx";
+import 'react-toastify/dist/ReactToastify.css';
 
 import "react-datepicker/dist/react-datepicker.css";
 

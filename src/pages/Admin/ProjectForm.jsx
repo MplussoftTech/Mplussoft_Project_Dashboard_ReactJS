@@ -5,11 +5,15 @@ import api from "../../api.js";
 import { renderStatus } from "../../Utils/utils.js";
 import DatePicker from "react-datepicker";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { format } from "date-fns";
+
+const formatDate = (date) => (date ? format(date, "yyyy-MM-dd") : null);
 
 const statusOptions = [
-  { value: "on_board", label: "Onboarding" },
+  // { value: "on_board", label: "Onboarding" },
   { value: "on_going", label: "Ongoing" },
-  { value: "closed", label: "Closed" },
+  { value: "complete", label: "Completed" },
   { value: "on_hold", label: "Hold" },
   { value: "cancel", label: "Cancelled" },
 ];
@@ -48,10 +52,9 @@ export default function ProjectForm({ mode, projectId }) {
         });
         setForm({
           ...res?.data?.data?.project,
-          status: renderStatus(res?.data?.data?.project),
+          // status: res?.data?.data?.project?.status,
         });
         setLogs(res?.data?.data?.logs);
-        // setInitialStatus(data.status);
       }
     };
 
@@ -70,10 +73,24 @@ export default function ProjectForm({ mode, projectId }) {
     try {
       const payload =
         mode === "edit"
-          ? { ...form, id: projectId }
+          ? {
+              ...form,
+              id: projectId,
+              status: form?.status,
+              ba_start_date: formatDate(form?.ba_start_date),
+              design_start_date: formatDate(form?.design_start_date),
+              development_start_date: formatDate(form?.development_start_date),
+              qa_start_date: formatDate(form?.qa_start_date),
+              uat_start_date: formatDate(form?.uat_start_date),
+              production_start_date: formatDate(form?.production_start_date),
+            }
           : {
               project_name: form?.project_name,
-              project_start_date: form?.project_start_date,
+
+              project_start_date: form?.project_start_date
+                ? format(form.project_start_date, "yyyy-MM-dd")
+                : null,
+
               project_start_time: form?.project_start_time,
               no_of_working_days: form?.no_of_working_days,
               status: form?.status,
@@ -88,8 +105,11 @@ export default function ProjectForm({ mode, projectId }) {
       });
 
       if (res.status === 201) {
-        navigate("/admin/projects");
+        toast.success("Project Added Successfully!");
+      } else if (res.status === 200) {
+        toast.success("Project Updated Successfully!");
       }
+      navigate("/admin/projects");
     } catch (error) {
       console.error(
         "Submission failed:",
@@ -131,7 +151,7 @@ export default function ProjectForm({ mode, projectId }) {
               </div>
 
               <div className="col-md-3">
-                <label>Start Date</label> <br />
+                <label>Project Start Date</label> <br />
                 <DatePicker
                   selected={form.project_start_date}
                   onChange={(date) =>
@@ -140,6 +160,8 @@ export default function ProjectForm({ mode, projectId }) {
                   dateFormat="dd-MM-yyyy"
                   className="form-control"
                   disabled={mode === "edit"}
+                  placeholderText="Select Start Date"
+                  required
                 />
               </div>
 
@@ -148,10 +170,12 @@ export default function ProjectForm({ mode, projectId }) {
                 <input
                   type="time"
                   id="appt"
+                  className="form-control"
                   name="project_start_time"
                   value={form?.project_start_time}
                   onChange={handleChange}
                   disabled={mode === "edit"}
+                  required
                 ></input>
               </div>
 
@@ -163,7 +187,9 @@ export default function ProjectForm({ mode, projectId }) {
                     name="no_of_working_days"
                     value={form.no_of_working_days}
                     onChange={handleChange}
+                    placeholder="Number of working days"
                     className="form-control"
+                    required
                   />
                 </div>
               )}
@@ -176,6 +202,7 @@ export default function ProjectForm({ mode, projectId }) {
                     value={form.status}
                     onChange={handleChange}
                     className="form-select"
+                    required
                   >
                     {[
                       { label: "Onboarding", value: "on_board" },
@@ -274,10 +301,13 @@ export default function ProjectForm({ mode, projectId }) {
                     <label>Status</label>
                     <select
                       name="status"
-                      value={form.status}
+                      value={form.status || ""}
                       onChange={handleChange}
                       className="form-select"
                     >
+                      <option value="" >
+                        Select Status
+                      </option>
                       {statusOptions.map((status) => (
                         <option key={status.value} value={status.value}>
                           {status.label}

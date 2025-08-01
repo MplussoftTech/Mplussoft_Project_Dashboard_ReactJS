@@ -16,7 +16,7 @@ export default function AdminNavbar({ onToggleSidebar }) {
       >
         ☰
       </button>
-      <span className="navbar-brand mb-0 h5">Admin Panel</span>
+      <span className="navbar-brand mb-0 h5">Mplussoft Dashboard</span>
       <button className="btn btn-outline-danger" onClick={handleLogout}>
         Logout
       </button>

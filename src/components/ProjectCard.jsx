@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { renderStatus } from "../Utils/utils";
 
 export default function ProjectCard({ project, col, isLostMaking = false }) {
   const [timeLeft, setTimeLeft] = useState("00:00:00");
@@ -25,7 +26,7 @@ export default function ProjectCard({ project, col, isLostMaking = false }) {
   const elapsedPercentage = totalDays > 0 ? (elapsedDays / totalDays) * 100 : 0;
 
   useEffect(() => {
-    if (!project?.countdown_24hr) return;
+    if (!project?.countdown_24hr || project?.status === "on_hold") return;
 
     const totalSeconds = toSeconds(project.countdown_24hr);
     let remainingSeconds = totalSeconds;
@@ -48,7 +49,7 @@ export default function ProjectCard({ project, col, isLostMaking = false }) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
     };
-  }, [project?.countdown_24hr]);
+  }, [project?.countdown_24hr, project?.status]);
 
   const getColorClass = () => {
     if (remainingDays <= 1) return "overdue_timer_color"; // red if only 1 day or less left
@@ -62,6 +63,10 @@ export default function ProjectCard({ project, col, isLostMaking = false }) {
   return (
     <div className={`col-md-${col} ${col === 12 ? "mb-0" : ""} `}>
       <div className="card custom-project-card p-2">
+        {project.status === "on_hold" && <div className="overlay">
+            <h5 className="text-white mb-2 fw-bold">{project.project_name}</h5>
+            <h3 className="fw-bold" style={{color:"#307ed6ff"}}>{renderStatus(project?.status)}</h3>
+          </div>}
         <h6 className="text-white mb-3 fw-bold">{project.project_name}</h6>
 
         <div className="d-flex align-items-center justify-content-center gap-1">
