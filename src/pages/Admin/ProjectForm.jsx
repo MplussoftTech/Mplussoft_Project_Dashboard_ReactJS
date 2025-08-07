@@ -115,6 +115,13 @@ export default function ProjectForm({ mode, projectId }) {
         "Submission failed:",
         error.response?.data || error.message
       );
+      if (
+        error?.status === 403 &&
+        error?.response?.data?.message === "Invalid token"
+      ) {
+        localStorage.removeItem("auth_token");
+        navigate("/login");
+      }
     } finally {
       setLoading(false); // hide loader after success or failure
     }
@@ -305,9 +312,7 @@ export default function ProjectForm({ mode, projectId }) {
                       onChange={handleChange}
                       className="form-select"
                     >
-                      <option value="" >
-                        Select Status
-                      </option>
+                      <option value="">Select Status</option>
                       {statusOptions.map((status) => (
                         <option key={status.value} value={status.value}>
                           {status.label}

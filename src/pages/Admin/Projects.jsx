@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../../api.js";
 import Pagination from "../../components/Pagination.jsx";
 import ProjectsTable from "../../components/ProjectsTable.jsx";
@@ -9,6 +9,7 @@ export default function Projects() {
   const [projects, setProjects] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [searchTerm, setSearchTerm] = useState(""); // This will be used for actual filtering
+  const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(10);
@@ -32,7 +33,14 @@ export default function Projects() {
       setProjects(res?.data?.data);
       setTotalRecords(res?.data?.total);
     } catch (error) {
-      console.error("Failed to fetch projects:", error?.message);
+      if (
+        error?.status === 403 &&
+        error?.response?.data?.message === "Invalid token"
+      ) {
+        localStorage.removeItem("auth_token");
+        navigate("/login");
+      }
+      console.log("Failed to fetch projects:", error?.status);
     }
   };
 

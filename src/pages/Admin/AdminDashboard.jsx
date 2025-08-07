@@ -1,8 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 export default function AdminDashboard() {
-  console.log("AdminDashboard loaded");
-
   return (
     <div>AdminDashboard</div>
   )
