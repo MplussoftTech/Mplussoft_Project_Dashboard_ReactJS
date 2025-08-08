@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../api";
 
 function AdminLogin() {
@@ -36,6 +36,10 @@ function AdminLogin() {
         className="card shadow p-4"
         style={{ width: "100%", maxWidth: "400px" }}
       >
+        <Link to="/">
+          <img className="admin_logo" src="/icon.png" alt="" />
+        </Link>
+
         <h3 className="text-center mb-4">Login</h3>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
