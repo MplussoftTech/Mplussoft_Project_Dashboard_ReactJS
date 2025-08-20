@@ -1,4 +1,5 @@
 const BASE_URL = "https://dashboard-api.mplussoft.in/api";
+// const BASE_URL = "http://192.168.0.239:2000/api"
 
 const api = {
   admin: {
@@ -7,6 +8,7 @@ const api = {
     get_projects: `${BASE_URL}/admin/project-table`,
     update_project: `${BASE_URL}/admin/project-update`,
     edit_project: `${BASE_URL}/project`,
+    delete_project: `${BASE_URL}/common-delete`,
   },
   front: {
     get_dashboard: `${BASE_URL}/dashboard`,

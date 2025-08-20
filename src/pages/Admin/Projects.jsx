@@ -46,7 +46,7 @@ export default function Projects() {
 
   useEffect(() => {
     fetchProjects();
-  }, [currentPage, limit, searchTerm]);
+  }, [currentPage, limit, searchTerm, totalRecords]);
 
   const handleSearchInput = (e) => {
     setSearchInput(e.target.value);
@@ -109,6 +109,7 @@ export default function Projects() {
         projects={projects}
         currentPage={currentPage}
         limit={limit}
+        updateRecords={setTotalRecords}
       />
 
       {/* Pagination */}
